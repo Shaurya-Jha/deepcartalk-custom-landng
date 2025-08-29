@@ -4,13 +4,51 @@
     <p>Discover top discussions and categories at a glance.</p>
   </section>
 
-  <section class="top-posts">
-    <h2>🔥 Trending</h2>
-    <p>TODO: fetch & show top topics here</p>
-  </section>
+  {{#if this.landingLoading}}
+    <div class="loading">Loading…</div>
+  {{/if}}
 
-  <section class="top-categories">
-    <h2>📂 Top Categories</h2>
-    <p>TODO: fetch & show categories here</p>
-  </section>
+  {{#if this.landingFeatured.length}}
+    <section class="carousel-wrap">
+      <h2>⭐ Featured</h2>
+      <div class="carousel">
+        {{#each this.landingFeatured as |t|}}
+          <a class="slide topic-card" href={{t.url}}>
+            <h3 class="title">{{t.fancy_title}}</h3>
+            <div class="meta">{{t.views}} views • {{t.like_count}} likes</div>
+          </a>
+        {{/each}}
+      </div>
+    </section>
+  {{/if}}
+
+  {{#if this.landingTopics.length}}
+    <section class="top-posts">
+      <h2>🔥 Trending This Week</h2>
+      <ul class="topic-list">
+        {{#each this.landingTopics as |t|}}
+          <li class="topic-item">
+            <a href={{t.url}} class="topic-link">{{t.fancy_title}}</a>
+            <span class="topic-stats"> · {{t.views}} views · {{t.reply_count}} replies</span>
+          </li>
+        {{/each}}
+      </ul>
+    </section>
+  {{/if}}
+
+  {{#if this.landingCategories.length}}
+    <section class="top-categories">
+      <h2>📂 Top Categories</h2>
+      <div class="cat-grid">
+        {{#each this.landingCategories as |c|}}
+          <a class="cat-card" href={{c.url}}>
+            <div class="cat-name">{{c.name}}</div>
+            {{#if c.topic_count}}
+              <div class="cat-count">{{c.topic_count}} topics</div>
+            {{/if}}
+          </a>
+        {{/each}}
+      </div>
+    </section>
+  {{/if}}
 </div>
