@@ -1,13 +1,13 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
 import { ajax } from "discourse/lib/ajax";
 
-function replaceRoute(routeName, api) {
+function hijack(routeName, api) {
   api.modifyClass(`route:${routeName}`, {
     pluginId: "custom-landing",
-    renderTemplate() {
-      console.log(`[custom-landing] renderTemplate on ${routeName}`);
-      this.render("custom-homepage");
-    },
+
+    // Ember 5+ uses implicit rendering; set the templateName directly.
+    templateName: "custom-homepage",
+
     setupController(controller, model) {
       this._super(controller, model);
       console.log(`[custom-landing] setupController on ${routeName}`);
@@ -42,13 +42,10 @@ export default {
   initialize() {
     withPluginApi("1.2.0", (api) => {
       console.log("[custom-landing] initializer loaded");
-
-      // Cover the common home routes in 3.x
-      [
-        "discovery.latest",      // default when “Latest” is first in top menu
-        "discovery.categories",  // if “Categories” is first
-        "discovery.top",         // if “Top” is first
-      ].forEach((r) => replaceRoute(r, api));
+      // Cover the common home destinations
+      ["discovery.latest", "discovery.categories", "discovery.top"].forEach((r) =>
+        hijack(r, api)
+      );
     });
   },
 };
