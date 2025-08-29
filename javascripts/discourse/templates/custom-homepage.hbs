@@ -1,55 +1,56 @@
-{{! Renders above the default page; CSS will hide the default list on home }}
-<div class="landing-container">
-  <section class="hero">
-    <h1>🚀 Welcome to Our Community</h1>
-    <p>Discover top discussions and categories at a glance.</p>
-  </section>
-
-  {{#if this.loading}}
-    <div class="loading">Loading…</div>
-  {{/if}}
-
-  {{#if this.featured.length}}
-    <section class="carousel-wrap">
-      <h2>⭐ Featured</h2>
-      <div class="carousel">
-        {{#each this.featured as |t|}}
-          <a class="slide topic-card" href={{t.url}}>
-            <h3 class="title">{{t.fancy_title}}</h3>
-            <div class="meta">{{t.views}} views • {{t.like_count}} likes</div>
-          </a>
-        {{/each}}
-      </div>
+{{#if this.isHome}}
+  <div class="landing-container">
+    <section class="hero">
+      <h1>🚀 Welcome to Our Community</h1>
+      <p>Discover top discussions and categories at a glance.</p>
     </section>
-  {{/if}}
 
-  {{#if this.topics.length}}
-    <section class="top-posts">
-      <h2>🔥 Trending This Week</h2>
-      <ul class="topic-list">
-        {{#each this.topics as |t|}}
-          <li class="topic-item">
-            <a href={{t.url}} class="topic-link">{{t.fancy_title}}</a>
-            <span class="topic-stats"> · {{t.views}} views · {{t.reply_count}} replies</span>
-          </li>
-        {{/each}}
-      </ul>
-    </section>
-  {{/if}}
+    {{#if this.loading}}
+      <div class="loading">Loading…</div>
+    {{/if}}
 
-  {{#if this.categories.length}}
-    <section class="top-categories">
-      <h2>📂 Top Categories</h2>
-      <div class="cat-grid">
-        {{#each this.categories as |c|}}
-          <a class="cat-card" href={{c.url}}>
-            <div class="cat-name">{{c.name}}</div>
-            {{#if c.topic_count}}
-              <div class="cat-count">{{c.topic_count}} topics</div>
-            {{/if}}
-          </a>
-        {{/each}}
-      </div>
-    </section>
-  {{/if}}
-</div>
+    {{#if this.featured.length}}
+      <section class="carousel-wrap">
+        <h2>⭐ Featured</h2>
+        <div class="carousel">
+          {{#each this.featured as |t|}}
+            <a class="slide topic-card" href={{t.url}}>
+              <h3 class="title">{{t.fancy_title}}</h3>
+              <div class="meta">{{t.views}} views • {{t.like_count}} likes</div>
+            </a>
+          {{/each}}
+        </div>
+      </section>
+    {{/if}}
+
+    {{#if this.topics.length}}
+      <section class="top-posts">
+        <h2>🔥 Trending This Week</h2>
+        <ul class="topic-list">
+          {{#each this.topics as |t|}}
+            <li class="topic-item">
+              <a href={{t.url}} class="topic-link">{{t.fancy_title}}</a>
+              <span class="topic-stats"> · {{t.views}} views · {{t.reply_count}} replies</span>
+            </li>
+          {{/each}}
+        </ul>
+      </section>
+    {{/if}}
+
+    {{#if this.categories.length}}
+      <section class="top-categories">
+        <h2>📂 Top Categories</h2>
+        <div class="cat-grid">
+          {{#each this.categories as |c|}}
+            <a class="cat-card" href={{c.url}}>
+              <div class="cat-name">{{c.name}}</div>
+              {{#if c.topic_count}}
+                <div class="cat-count">{{c.topic_count}} topics</div>
+              {{/if}}
+            </a>
+          {{/each}}
+        </div>
+      </section>
+    {{/if}}
+  </div>
+{{/if}}
