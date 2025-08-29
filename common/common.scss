@@ -60,3 +60,17 @@ h2 { margin: 1rem 0 .75rem; }
 }
 .cat-name { font-weight: 700; }
 .cat-count { opacity: .7; font-size: .875rem; }
+
+/* When our landing is active, hide the default discovery UI */
+body.custom-landing-active .navigation-container,
+body.custom-landing-active .category-breadcrumb,
+body.custom-landing-active .discovery-list,
+body.custom-landing-active .list-controls,
+body.custom-landing-active .show-more {
+  display: none !important;
+}
+
+/* Optional: tighten spacing when defaults are hidden */
+body.custom-landing-active .wrap {
+  padding-top: 1rem;
+}
