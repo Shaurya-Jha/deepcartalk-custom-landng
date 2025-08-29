@@ -1,15 +1,19 @@
-{{! This renders above the default discovery content }}
+{{! Renders above the default page; CSS will hide the default list on home }}
 <div class="landing-container">
   <section class="hero">
     <h1>🚀 Welcome to Our Community</h1>
     <p>Discover top discussions and categories at a glance.</p>
   </section>
 
-  {{#if this.landingFeatured.length}}
+  {{#if this.loading}}
+    <div class="loading">Loading…</div>
+  {{/if}}
+
+  {{#if this.featured.length}}
     <section class="carousel-wrap">
       <h2>⭐ Featured</h2>
       <div class="carousel">
-        {{#each this.landingFeatured as |t|}}
+        {{#each this.featured as |t|}}
           <a class="slide topic-card" href={{t.url}}>
             <h3 class="title">{{t.fancy_title}}</h3>
             <div class="meta">{{t.views}} views • {{t.like_count}} likes</div>
@@ -19,11 +23,11 @@
     </section>
   {{/if}}
 
-  {{#if this.landingTopics.length}}
+  {{#if this.topics.length}}
     <section class="top-posts">
       <h2>🔥 Trending This Week</h2>
       <ul class="topic-list">
-        {{#each this.landingTopics as |t|}}
+        {{#each this.topics as |t|}}
           <li class="topic-item">
             <a href={{t.url}} class="topic-link">{{t.fancy_title}}</a>
             <span class="topic-stats"> · {{t.views}} views · {{t.reply_count}} replies</span>
@@ -33,11 +37,11 @@
     </section>
   {{/if}}
 
-  {{#if this.landingCategories.length}}
+  {{#if this.categories.length}}
     <section class="top-categories">
       <h2>📂 Top Categories</h2>
       <div class="cat-grid">
-        {{#each this.landingCategories as |c|}}
+        {{#each this.categories as |c|}}
           <a class="cat-card" href={{c.url}}>
             <div class="cat-name">{{c.name}}</div>
             {{#if c.topic_count}}

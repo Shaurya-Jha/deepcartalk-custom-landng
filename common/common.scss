@@ -1,4 +1,4 @@
-/* When our landing is active, hide the default discovery page bits */
+/* Hide default discovery UI when our landing is active */
 body.custom-landing-active .navigation-container,
 body.custom-landing-active .category-breadcrumb,
 body.custom-landing-active .discovery-list,
@@ -7,7 +7,7 @@ body.custom-landing-active .show-more {
   display: none !important;
 }
 
-/* Landing page styles (same as before) */
+/* Landing styles */
 .landing-container { max-width: 1200px; margin: 0 auto; padding: 2rem 1rem 3rem; }
 .hero { text-align: center; margin-bottom: 1.5rem; }
 h2 { margin: 1rem 0 .75rem; }
