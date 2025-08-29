@@ -1,12 +1,9 @@
+{{! This renders above the default discovery content }}
 <div class="landing-container">
   <section class="hero">
     <h1>🚀 Welcome to Our Community</h1>
     <p>Discover top discussions and categories at a glance.</p>
   </section>
-
-  {{#if this.landingLoading}}
-    <div class="loading">Loading…</div>
-  {{/if}}
 
   {{#if this.landingFeatured.length}}
     <section class="carousel-wrap">

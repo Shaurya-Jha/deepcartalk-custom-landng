@@ -1,14 +1,13 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
 import { ajax } from "discourse/lib/ajax";
 
-function attachBodyClassForHome(url) {
-  // treat "/" and "/latest" as home (adjust if your default is categories/top)
-  const isHome =
+function isHome(url) {
+  return (
     url === "/" ||
     url.startsWith("/?") ||
     url.startsWith("/latest") ||
-    url.startsWith("/latest?");
-  document.body.classList.toggle("custom-landing-active", isHome);
+    url.startsWith("/latest?")
+  );
 }
 
 export default {
@@ -17,14 +16,12 @@ export default {
     withPluginApi("1.2.0", (api) => {
       console.log("[custom-landing] initializer loaded");
 
-      // 1) Render our template into the page above the main container
-      api.renderInOutlet("above-main-container", "custom-homepage");
-      console.log("[custom-landing] rendered via outlet");
+      // Toggle body class so we can hide the default list via CSS
+      api.onPageChange((url) => {
+        document.body.classList.toggle("custom-landing-active", isHome(url));
+      });
 
-      // 2) Mark body on home so we can hide the default list with CSS
-      api.onPageChange((url) => attachBodyClassForHome(url));
-
-      // 3) Provide data to the discovery controller so our template can read it
+      // Load data into the discovery.latest controller (the default home)
       api.modifyClass("route:discovery.latest", {
         pluginId: "custom-landing",
         setupController(controller, model) {
@@ -55,9 +52,8 @@ export default {
         },
       });
 
-      // If your default tab is Categories/Top instead of Latest, also add:
-      // api.modifyClass("route:discovery.categories", {...same setupController...});
-      // api.modifyClass("route:discovery.top", {...same setupController...});
+      // If your default tab is Categories/Top instead, duplicate the block above
+      // for "route:discovery.categories" or "route:discovery.top".
     });
   },
 };
